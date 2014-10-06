@@ -1,0 +1,329 @@
+<?xml version="1.0"?>
+
+<robot name="horus">
+
+ <!-- Define how the robot moves in its environment, i.e., connection to robot's root link -->
+  <!--  <virtual_joint name="world_joint" type="planar" parent_frame="some fixed frame" child_link="robot's root link name"/> type can be planar, floating or fixed -->
+
+  <virtual_joint name="world_joint" type="planar" parent_frame="odom" child_link="r_sole"/> 
+  <!--<virtual_joint name="world_joint" type="planar" parent_frame="odom" child_link="r_sole"/> -->
+
+   <group name="left_arm">
+      <chain base_link="torso" tip_link="l_gripper"/>
+   </group>
+   
+   <group name="right_arm">
+      <chain base_link="torso" tip_link="r_gripper"/>
+   </group>
+
+   <group name="arms">
+      <group name="left_arm"/>
+      <group name="right_arm"/>
+   </group>
+
+   <group_state name="outstreched_arms" group="arms">
+      <!--Left arm-->
+      <joint name="LShoulderPitch" value="0.0" />
+      <joint name="LShoulderRoll" value="0.0" />
+      <joint name="LElbowYaw" value="0.0" />
+      <joint name="LElbowRoll" value="0.0" />
+      <joint name="LWristYaw" value="0.0" />
+      
+      <!--Right arm-->
+      <joint name="RShoulderPitch" value="0.0" />
+      <joint name="RShoulderRoll" value="0.0" />
+      <joint name="RElbowYaw" value="0.0" />
+      <joint name="RElbowRoll" value="0.0" />
+      <joint name="RWristYaw" value="0.0" /> 
+   </group_state>
+   
+   
+   
+   <group name="left_leg">
+      <chain base_link="torso" tip_link="l_sole"/>
+      <joint name="RHipYawPitch" />
+   </group>
+   
+   <group name="right_leg">
+      <chain base_link="torso" tip_link="r_sole"/>
+      <joint name="LHipYawPitch" />
+   </group>
+
+   <group name="legs">
+      <group name="left_leg"/>
+      <group name="right_leg"/>
+   </group>
+
+
+
+   <group_state name="upright_legs" group="legs">
+      <!--Left leg-->
+      <joint name="LHipYawPitch" value="0.0" />
+      <joint name="LHipRoll" value="0.0" />
+      <joint name="LHipPitch" value="0.0" />
+      <joint name="LKneePitch" value="0.0" />
+      <joint name="LAnklePitch" value="0.0" />
+      <joint name="LAnkleRoll" value="0.0" />
+  
+      <!--Right leg-->
+      <joint name="RHipYawPitch" value="0.0" />
+      <joint name="RHipRoll" value="0.0" />
+      <joint name="RHipPitch" value="0.0" />
+      <joint name="RKneePitch" value="0.0" />
+      <joint name="RAnklePitch" value="0.0" /> 
+      <joint name="RAnkleRoll" value="0.0" />
+
+   </group_state>
+   
+   
+   
+   
+  <!--Base -->
+<!--   <group name="base">
+      <joint name="world_joint"/>
+   </group>-->
+   
+    <!--whole body -->
+   <group name="whole_body">
+      <group name="arms"/>
+      <group name="legs"/>
+   </group>
+   
+   <!--Whole body + base -->
+<!--   <group name="whole_body_base">
+      <group name="arms"/>
+      <group name="base"/>
+      <group name="legs"/>
+   </group>-->
+   
+   
+   <!-- +++++++++++++++++++++++++++++++++ Experimental +++++++++++++++++++++++++++++++++++++++ -->
+   
+   
+   
+   <!--Whole body (rfoot_base) -->
+   <group name="whole_body_rfoot">
+   <!--Left arm-->
+      <joint name="LShoulderPitch"/>
+      <joint name="LShoulderRoll"/>
+      <joint name="LElbowYaw"/>
+      <joint name="LElbowRoll"/>
+      <joint name="LWristYaw"/>
+      
+      <!--Right arm-->
+      <joint name="RShoulderPitch"/>
+      <joint name="RShoulderRoll"/>
+      <joint name="RElbowYaw"/>
+      <joint name="RElbowRoll"/>
+      <joint name="RWristYaw"/> 
+      
+      <!--Left leg-->
+      <joint name="LHipYawPitch"/>
+      <joint name="LHipRoll"/>
+      <joint name="LHipPitch"/>
+      <joint name="LKneePitch"/>
+      <joint name="LAnklePitch"/>
+      <joint name="LAnkleRoll"/>
+  
+      <!--Right leg-->
+      <joint name="RHipYawPitch"/>
+      <joint name="RHipRoll"/>
+      <joint name="RHipPitch"/>
+      <joint name="RKneePitch"/>
+      <joint name="RAnklePitch"/>
+      <joint name="RAnkleRoll"/>
+   </group>
+
+
+  <!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+  
+  
+  <!--Endeffectors-->
+   <group name="l_arm_endeffector">
+      <joint name="l_gripper_joint" />
+   </group>
+
+   <group name="r_arm_endeffector">
+      <joint name="r_gripper_joint" />
+   </group>
+   
+   
+   <group name="l_leg_endeffector">
+      <joint name="l_sole_joint" />
+   </group>
+
+   <!-- <group name="r_leg_endeffector">
+      <joint name="r_sole_joint" />
+   </group> -->
+
+
+   <end_effector name="l_arm_endeffector" parent_link="LWristYaw_link" group="l_arm_endeffector"/>
+   <end_effector name="r_arm_endeffector" parent_link="RWristYaw_link" group="r_arm_endeffector"/>
+   <end_effector name="l_leg_endeffector" parent_link="LAnkleRoll_link" group="l_leg_endeffector"/>
+   <!-- <end_effector name="r_leg_endeffector" parent_link="RAnkleRoll_link" group="r_leg_endeffector"/> -->
+
+
+
+   <!-- disable_collisions tags -->
+   <disable_collisions link1="base_link" link2="torso" /> <!--Adjacent in collision (from here downwards)-->   
+   <disable_collisions link1="torso" link2="HeadYaw_link" />  
+   <disable_collisions link1="HeadYaw_link" link2="HeadPitch_link" /> 
+   <disable_collisions link1="HeadPitch_link" link2="CameraBottom_frame" /> 
+   <disable_collisions link1="HeadPitch_link" link2="CameraTop_frame" /> 
+   <disable_collisions link1="torso" link2="LHipYawPitch_link" /> 
+   <disable_collisions link1="LHipYawPitch_link" link2="LHipRoll_link" /> 
+   <disable_collisions link1="LHipRoll_link" link2="LHipPitch_link" /> 
+   <disable_collisions link1="LHipPitch_link" link2="LKneePitch_link" /> 
+   <disable_collisions link1="LKneePitch_link" link2="LAnklePitch_link" /> 
+   <disable_collisions link1="LAnklePitch_link" link2="LAnkleRoll_link" /> 
+   <disable_collisions link1="LAnkleRoll_link" link2="l_sole" /> 
+   <disable_collisions link1="torso" link2="LShoulderPitch_link" /> 
+   <disable_collisions link1="LShoulderPitch_link" link2="LShoulderRoll_link" /> 
+   <disable_collisions link1="LShoulderRoll_link" link2="LElbowYaw_link" /> 
+   <disable_collisions link1="LElbowYaw_link" link2="LElbowRoll_link" /> 
+   <disable_collisions link1= "LElbowRoll_link" link2= "LWristYaw_link" />
+   <disable_collisions link1= "LWristYaw_link"  link2= "l_gripper" />
+   <disable_collisions link1= "torso" link2= "RHipYawPitch_link" />
+   <disable_collisions link1= "RHipYawPitch_link" link2= "RHipRoll_link" />
+   <disable_collisions link1= "RHipRoll_link" link2= "RHipPitch_link" />
+   <disable_collisions link1= "RHipPitch_link" link2= "RKneePitch_link" />
+   <disable_collisions link1= "RKneePitch_link" link2= "RAnklePitch_link" />
+   <disable_collisions link1= "RAnklePitch_link" link2= "RAnkleRoll_link" />
+   <disable_collisions link1= "RAnkleRoll_link" link2= "r_sole" />
+   <disable_collisions link1= "torso" link2= "RShoulderPitch_link" />
+   <disable_collisions link1= "RShoulderPitch_link" link2= "RShoulderRoll_link" />
+   <disable_collisions link1= "RShoulderRoll_link" link2= "RElbowYaw_link" />
+   <disable_collisions link1= "RElbowYaw_link" link2= "RElbowRoll_link" />
+   <disable_collisions link1= "RElbowRoll_link" link2= "RWristYaw_link" />
+   <disable_collisions link1= "RWristYaw_link" link2="r_gripper" />
+   <disable_collisions link1= "HeadPitch_link" link2= "LAnklePitch_link" /> <!-- Never in collision (from here downwards)-->
+   <disable_collisions link1= "HeadPitch_link" link2= "LAnkleRoll_link" />
+   <disable_collisions link1= "HeadPitch_link" link2="LHipPitch_link" />
+   <disable_collisions link1= "HeadPitch_link" link2= "LHipRoll_link" />
+   <disable_collisions link1= "HeadPitch_link" link2= "LHipYawPitch_link" />
+   <disable_collisions link1= "HeadPitch_link" link2= "LKneePitch_link" />
+   <disable_collisions link1= "HeadPitch_link" link2= "RAnklePitch_link" />
+   <disable_collisions link1= "HeadPitch_link" link2= "RAnkleRoll_link" />
+   <disable_collisions link1= "HeadPitch_link" link2= "RHipPitch_link" />
+   <disable_collisions link1= "HeadPitch_link" link2= "RHipRoll_link" />
+   <disable_collisions link1= "HeadPitch_link" link2= "RHipYawPitch_link" />
+   <disable_collisions link1= "HeadPitch_link" link2= "RKneePitch_link" />
+   <disable_collisions link1= "HeadYaw_link" link2= "LAnklePitch_link" />
+   <disable_collisions link1= "HeadYaw_link" link2= "LAnkleRoll_link" />
+   <disable_collisions link1= "HeadYaw_link" link2= "LElbowRoll_link" />
+   <disable_collisions link1= "HeadYaw_link" link2= "l_gripper" />
+   <disable_collisions link1= "HeadYaw_link" link2= "LHipPitch_link" />
+   <disable_collisions link1= "HeadYaw_link" link2= "LHipRoll_link" />
+   <disable_collisions link1= "HeadYaw_link" link2= "LHipYawPitch_link" />
+   <disable_collisions link1= "HeadYaw_link" link2= "LKneePitch_link" />
+   <disable_collisions link1= "HeadYaw_link" link2= "LShoulderRoll_link" />
+   <disable_collisions link1= "HeadYaw_link" link2= "LWristYaw_link" />
+   <disable_collisions link1= "HeadYaw_link" link2= "RAnklePitch_link" />
+   <disable_collisions link1= "HeadYaw_link" link2= "RAnkleRoll_link" />
+   <disable_collisions link1= "HeadYaw_link" link2= "RElbowRoll_link" />
+   <disable_collisions link1= "HeadYaw_link" link2= "r_gripper" />
+   <disable_collisions link1= "HeadYaw_link" link2= "RHipPitch_link" />
+   <disable_collisions link1= "HeadYaw_link" link2= "RHipRoll_link" />
+   <disable_collisions link1= "HeadYaw_link" link2= "RHipYawPitch_link" />
+   <disable_collisions link1= "HeadYaw_link" link2= "RKneePitch_link" />
+   <disable_collisions link1= "HeadYaw_link" link2= "RShoulderRoll_link" />
+   <disable_collisions link1= "HeadYaw_link" link2=" RWristYaw_link" />
+   <disable_collisions link1= "LAnklePitch_link" link2= "LHipPitch_link" />
+   <disable_collisions link1= "LAnklePitch_link" link2= "LHipRoll_link" />
+   <disable_collisions link1= "LAnklePitch_link" link2= "LHipYawPitch_link" />
+   <disable_collisions link1= "LAnklePitch_link" link2= "RElbowRoll_link" />
+   <disable_collisions link1= "LAnklePitch_link" link2= "r_gripper" />
+   <disable_collisions link1= "LAnklePitch_link" link2= "RHipRoll_link " />
+   <disable_collisions link1= "LAnklePitch_link" link2= "RHipYawPitch_link" />
+   <disable_collisions link1= "LAnklePitch_link" link2= "RShoulderRoll_link" />
+   <disable_collisions link1= "LAnklePitch_link" link2= "RWristYaw_link" />
+   <disable_collisions link1= "LAnklePitch_link" link2= "torso" />
+   <disable_collisions link1= "LAnkleRoll_link" link2= "LKneePitch_link"/> 
+   <disable_collisions link1= "LAnkleRoll_link" link2= "RElbowRoll_link" />  
+   <disable_collisions link1= "LAnkleRoll_link" link2= "r_gripper" />
+   <disable_collisions link1= "LAnkleRoll_link" link2= "RShoulderRoll_link" />
+   <disable_collisions link1= "LAnkleRoll_link" link2= "RWristYaw_link" />
+   <disable_collisions link1= "LAnkleRoll_link" link2= "torso" />
+   <disable_collisions link1= "LElbowRoll_link" link2= "l_gripper" />
+   <disable_collisions link1= "LElbowRoll_link" link2= "LShoulderRoll_link" />
+   <disable_collisions link1= "LElbowRoll_link" link2= "RAnklePitch_link" />
+   <disable_collisions link1= "LElbowRoll_link" link2= "RAnkleRoll_link" />
+   <disable_collisions link1= "LElbowRoll_link" link2= "RElbowRoll_link" />
+   <disable_collisions link1= "LElbowRoll_link" link2= "r_gripper" />
+   <disable_collisions link1= "LElbowRoll_link" link2= "RHipPitch_link" />
+   <disable_collisions link1= "LElbowRoll_link" link2= "RHipRoll_link" />
+   <disable_collisions link1= "LElbowRoll_link" link2= "RHipYawPitch_link" />
+   <disable_collisions link1= "LElbowRoll_link" link2= "RKneePitch_link" />
+   <disable_collisions link1= "LElbowRoll_link" link2= "RShoulderRoll_link" />
+   <disable_collisions link1= "l_gripper" link2= "LShoulderRoll_link" /> 
+   <disable_collisions link1= "l_gripper" link2= "RAnklePitch_link" />     
+   <disable_collisions link1= "l_gripper" link2= "RAnkleRoll_link" />     
+   <disable_collisions link1= "l_gripper" link2= "RElbowRoll_link" />    
+   <disable_collisions link1= "l_gripper" link2= "RHipRoll_link" />    
+   <disable_collisions link1= "l_gripper" link2= "RKneePitch_link" />   
+   <disable_collisions link1= "l_gripper" link2= "RShoulderRoll_link" />   
+   <disable_collisions link1= "LHipPitch_link" link2= "RElbowRoll_link" />  
+   <disable_collisions link1= "LHipPitch_link" link2= "RHipRoll_link" />    
+   <disable_collisions link1= "LHipPitch_link" link2= "RHipYawPitch_link" />   
+   <disable_collisions link1= "LHipPitch_link" link2= "RShoulderRoll_link" />   
+   <disable_collisions link1= "LHipRoll_link" link2= "LKneePitch_link" />    
+   <disable_collisions link1= "LHipRoll_link" link2= "LShoulderRoll_link" />   
+   <disable_collisions link1= "LHipRoll_link" link2= "RAnklePitch_link" />    
+   <disable_collisions link1= "LHipRoll_link" link2= "RElbowRoll_link" />   
+   <disable_collisions link1= "LHipRoll_link" link2= "r_gripper" />   
+   <disable_collisions link1= "LHipRoll_link" link2= "RHipPitch_link" />    
+   <disable_collisions link1= "LHipRoll_link" link2= "RHipRoll_link" />    
+   <disable_collisions link1= "LHipRoll_link" link2= "RHipYawPitch_link" />    
+   <disable_collisions link1= "LHipRoll_link" link2= "RShoulderRoll_link" />   
+   <disable_collisions link1= "LHipRoll_link" link2= "torso" />   
+   <disable_collisions link1= "LHipYawPitch_link" link2= "LKneePitch_link" />   
+   <disable_collisions link1= "LHipYawPitch_link" link2= "LShoulderRoll_link" />   
+   <disable_collisions link1= "LHipYawPitch_link" link2= "RAnklePitch_link" />    
+   <disable_collisions link1= "LHipYawPitch_link" link2= "RElbowRoll_link" />     
+   <disable_collisions link1= "LHipYawPitch_link" link2= "RHipRoll_link" />    
+   <disable_collisions link1= "LHipYawPitch_link" link2= "RShoulderRoll_link" />    
+   <disable_collisions link1= "LKneePitch_link" link2= "RElbowRoll_link" />    
+   <disable_collisions link1= "LKneePitch_link" link2= "r_gripper" />   
+   <disable_collisions link1= "LKneePitch_link" link2= "RShoulderRoll_link" />    
+   <disable_collisions link1= "LKneePitch_link" link2= "RWristYaw_link" />    
+   <disable_collisions link1= "LKneePitch_link" link2= "torso" />    
+   <disable_collisions link1= "LShoulderRoll_link" link2= "LWristYaw_link" />    
+   <disable_collisions link1= "LShoulderRoll_link" link2= "RAnklePitch_link" />    
+   <disable_collisions link1= "LShoulderRoll_link" link2= "RAnkleRoll_link" />    
+   <disable_collisions link1= "LShoulderRoll_link" link2= "RElbowRoll_link" />   
+   <disable_collisions link1= "LShoulderRoll_link" link2= "r_gripper" />    
+   <disable_collisions link1= "LShoulderRoll_link" link2= "RHipPitch_link" />    
+   <disable_collisions link1= "LShoulderRoll_link" link2= "RHipRoll_link" />   
+   <disable_collisions link1= "LShoulderRoll_link" link2= "RHipYawPitch_link" />    
+   <disable_collisions link1= "LShoulderRoll_link" link2= "RKneePitch_link" />    
+   <disable_collisions link1= "LShoulderRoll_link" link2= "RShoulderRoll_link" />   
+   <disable_collisions link1= "LShoulderRoll_link" link2= "RWristYaw_link" />   
+   <disable_collisions link1= "LShoulderRoll_link" link2=" torso" />    
+   <disable_collisions link1= "LWristYaw_link" link2= "RAnklePitch_link" />    
+   <disable_collisions link1= "LWristYaw_link" link2= "RAnkleRoll_link" />    
+   <disable_collisions link1= "LWristYaw_link" link2= "RKneePitch_link" />    
+   <disable_collisions link1= "LWristYaw_link" link2= "RShoulderRoll_link" />    
+   <disable_collisions link1= "LWristYaw_link" link2= "RWristYaw_link" />   
+   <disable_collisions link1= "RAnklePitch_link" link2= "RHipPitch_link" />   
+   <disable_collisions link1= "RAnklePitch_link" link2= "RHipRoll_link" />   
+   <disable_collisions link1= "RAnklePitch_link" link2= "torso" />    
+   <disable_collisions link1= "RAnkleRoll_link" link2= "RKneePitch_link" />   
+   <disable_collisions link1= "RAnkleRoll_link" link2= "torso" />   
+   <disable_collisions link1= "RElbowRoll_link" link2= "r_gripper" />   
+   <disable_collisions link1= "RElbowRoll_link" link2= "RShoulderRoll_link" />    
+   <disable_collisions link1= "r_gripper" link2= "RShoulderRoll_link" />     
+   <disable_collisions link1= "RHipRoll_link" link2= "RKneePitch_link" />     
+   <disable_collisions link1= "RHipRoll_link" link2= "RShoulderRoll_link" />    
+   <disable_collisions link1= "RHipRoll_link" link2= "torso" />    
+   <disable_collisions link1= "RHipYawPitch_link" link2= "RKneePitch_link" />    
+   <disable_collisions link1= "RHipYawPitch_link" link2= "RShoulderRoll_link" />   
+   <disable_collisions link1= "RKneePitch_link" link2= "torso" />   
+   <disable_collisions link1= "RShoulderRoll_link" link2= "RWristYaw_link" />   
+   <disable_collisions link1= "RShoulderRoll_link" link2= "torso" />
+   <disable_collisions link1= "RHipPitch_link" link2= "torso" />
+   <disable_collisions link1= "RHipPitch_link" link2= "RHipYawPitch_link" />
+
+
+</robot>
+
+

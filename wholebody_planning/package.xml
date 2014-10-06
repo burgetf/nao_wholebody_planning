@@ -1,0 +1,39 @@
+<!--<stack>
+  <description brief="wholebody_planning">
+  Various wholebody-related packages for the Nao (internal)
+  </description>
+  <author>Maintained by Felix Burget and Daniel Maier and Armin Hornung</author>
+  <license></license>  
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/wholebody_planning</url>
+  <depend stack="ros" />
+
+</stack>-->
+
+
+
+<package>
+  <name>wholebody_planning</name>
+  <version>0.0.1</version>
+  <description>The wholebody_planning stack</description>
+
+ 
+  <maintainer email="burgetf@informatik.uni-freiburg.de">burgetf</maintainer>
+
+  <license>BSD</license>
+
+
+  <buildtool_depend>catkin</buildtool_depend>
+  
+  <export>
+    <metapackage/> 
+  </export>
+  
+  
+  <run_depend>rrt_planner_msgs</run_depend>
+  <run_depend>rrt_connect_planner</run_depend>
+  <run_depend>rrt_connect_planner_example</run_depend>
+  
+  
+  
+</package>

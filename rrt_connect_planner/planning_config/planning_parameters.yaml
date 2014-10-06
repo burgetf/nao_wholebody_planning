@@ -1,0 +1,22 @@
+
+#-----  General Parameters
+planning_group: whole_body_rfoot
+scale_sp: 0.8
+     
+#------ Stable Config Generator   
+scg_max_samples: 5000  #standard: 2000
+scg_max_ik_iterations: 5       
+      
+#------ RRT Planner
+planner_step_factor: 0.1  #standard 0.1
+planner_max_iterations: 8000 
+       
+#Weights robot limb chains for approach motion plans 
+r_arm_weight_approach: 1.0        
+l_arm_weight_approach: 1.0
+legs_weight_approach: 1.0
+
+#Weights robot limb chains for manipulate motion plans 
+r_arm_weight_manipulate: 1.0        
+l_arm_weight_manipulate: 0.0
+legs_weight_manipulate: 1.0

@@ -1,0 +1,16 @@
+<launch>
+
+  <env name="PYTHONPATH" value="$(env PYTHONPATH)" /> 
+  
+  <arg name="nao_ip" default=  "192.168.105.16" /> <!-- ra.local  -->
+  <arg name="nao_port" default="$(optenv NAO_PORT 9559)" />
+  <param name="nao_sensors/use_joint_sensors" value="True" />
+
+ 
+  <node pkg="nao_driver" type="nao_sensors.py" name="nao_sensors" required="true" args="--pip=$(arg nao_ip) --pport=$(arg nao_port)"/>
+  
+  <node pkg="nao_driver" type="nao_controller.py" name="nao_controller" required="true" args="--pip=$(arg nao_ip) --pport=$(arg nao_port)" />
+  
+  <node pkg="robot_state_publisher" type="state_publisher" name="robot_state_publisher"  />   
+
+</launch> 

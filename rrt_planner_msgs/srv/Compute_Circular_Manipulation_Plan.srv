@@ -1,0 +1,53 @@
+# Right hand position w.r.t right foot:
+geometry_msgs/Point right_hand_position
+
+# Direction of hand z-axis w.r.t right foot:
+geometry_msgs/Vector3 right_hand_direction
+
+# Start configuration for whole_body_rfoot group (from srdf):
+float64[] wb_start_config
+
+# Relative angle of object w.r.t right foot frame:
+float64 relative_angle
+
+# Radius of rotation:
+float64 rotation_radius
+
+#Angle of rotation
+float64 rotation_angle
+
+#Distance of handle from door
+float64 clearance_handle
+
+#Prepare trajectory for simulation = false (default) or execution = true
+bool execute_trajectory
+
+---
+# Whole-body trajectories:
+moveit_msgs/DisplayTrajectory motion_plan_approach
+moveit_msgs/DisplayTrajectory motion_plan_manipulation
+
+# Whole-body goal configuration for approach: 
+float64[] wb_goal_config_approach
+
+#Time required to find first goal configuration
+float64 time_goal_config_approach
+
+
+# Whole-body goal configuration for approach: 
+float64[] wb_goal_config_manipulate 
+
+#Time required to find first goal configuration
+float64 time_goal_config_manipulate
+
+# Total number of nodes generated:
+uint32 num_nodes_generated_approach
+uint32 num_nodes_generated_manipulate
+
+# Time required for search:
+float64 search_time_approach
+float64 search_time_manipulate
+
+#Flag indicating whether motion plan has been found
+bool success_approach
+bool success_manipulation

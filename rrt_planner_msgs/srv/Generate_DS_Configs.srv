@@ -1,0 +1,5 @@
+int32 max_samples
+int32 max_ik_iterations
+
+---
+int32 num_configs_generated

@@ -1,0 +1,29 @@
+# Right hand position w.r.t right foot:
+geometry_msgs/Point right_hand_position
+# Direction of hand z-axis w.r.t right foot:
+geometry_msgs/Vector3 right_hand_direction 
+
+# Start configuration for whole_body_rfoot group (from srdf):
+float64[] wb_start_config
+
+#Prepare trajectory for simulation = false (default) or execution = true
+bool execute_trajectory
+
+---
+# Whole-body goal configuration generated:
+float64[] wb_goal_config 
+
+#Time required to find first goal configuration
+float64 time_goal_config
+
+# Whole-body trajectory:
+moveit_msgs/DisplayTrajectory motion_plan
+
+# Total number of nodes generated:
+uint32 num_nodes_generated
+
+# Time required for search:
+float64 search_time
+
+#Flag indicating whether motion plan has been found
+bool success

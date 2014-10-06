@@ -1,0 +1,41 @@
+<launch>
+ 
+  <!-- load robot -->
+  <include file="$(find nao_description2)/launch/upload_description.launch">
+    <arg name="robot" value="horus" />
+  </include> 
+  
+  
+
+  <!--  <param name="robot_description" textfile="$(find nao_description2)/urdf/nao_robot_horus_aldebaran_ogre.xml" />-->
+
+  <!-- this should be loaded by default from the same place as robot_description -->
+  <param name="robot_description_semantic" textfile="$(find rrt_connect_planner)/description/nao_robot_rfoot.srdf" />
+  
+
+  <!--<group ns="robot_description_planning">-->
+    <!-- This can have additional collision matrix elements (added to the data specified by SRDF); -->
+    <!--<rosparam command="load" file="$(find moveit_nao)/config/collision_matrix.yaml"/>-->
+  <!--</group>-->
+  
+  
+ 
+   <!--<group ns="nao_constraint_sampler"> -->
+     <!-- Yaml file setting the sampler to be used by the motion planner -->
+    <!--<rosparam command="load" file="$(find nao_constraint_sampler)/config/nao_constraint_sampling.yaml"/>-->
+  <!--</group>-->
+  
+  <!-- Start Motion Planning Node (providing planning services)-->
+  <!-- cwd = 'node' sets the working directory to the directory of the node's executable -->
+  <node name="nao_motion_planning" pkg="rrt_connect_planner" type="motion_planning_node" cwd="node" output="log"> <!--or output="screen" to print std/cout in terminal-->
+   <rosparam command="load" file="$(find rrt_connect_planner)/planning_config/planning_parameters.yaml"/>
+   
+   <param name="file_path_DS_database" value="$(find rrt_connect_planner)/config_database/ssc_double_support.dat" />
+   <param name="file_path_first_goal_config" value="$(find rrt_connect_planner)/config_database/ssc_double_support_goal_first.dat" />
+   <param name="file_path_second_goal_config" value="$(find rrt_connect_planner)/config_database/ssc_double_support_goal_second.dat" />
+   <param name="file_path_solution_traj_first" value="$(find rrt_connect_planner)/solutions/solution_path_first.dat" />
+   <param name="file_path_solution_traj_second" value="$(find rrt_connect_planner)/solutions/solution_path_second.dat" />
+  
+  </node> 
+ 
+</launch>
